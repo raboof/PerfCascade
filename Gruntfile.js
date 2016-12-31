@@ -9,7 +9,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     clean: {
-      dist: ["temp/", "src/dist/", "./index.js", "./index.d.ts"],
+      dist: ["temp/", "build/", "./index.js", "./index.d.ts"],
       pages: ["gh-pages/"],
       lib: ["lib/", "types/", "./index.js", "./index.d.ts"],
       js: ["src/ts/**/*.js", "src/ts/**/*.js.map"]
@@ -20,19 +20,19 @@ module.exports = function (grunt) {
       },
       demoCss: {
         src: ["src/css-raw/normalize.css", "src/css-raw/page.css", "src/css-raw/perf-cascade.css"],
-        dest: "src/dist/perf-cascade-demo.css",
+        dest: "build/perf-cascade-demo.css",
       },
       mainCss: {
         src: ["src/css-raw/perf-cascade.css"],
-        dest: "src/dist/perf-cascade.css",
+        dest: "build/perf-cascade.css",
       },
       fileReader: {
-        src: ["src/zip/zip.js", "src/zip/inflate.js", "src/dist/temp/perf-cascade-file-reader.js"],
-        dest: "src/dist/perf-cascade-file-reader.js",
+        src: ["src/zip/zip.js", "src/zip/inflate.js", "build/file-reader.js"],
+        dest: "build/perf-cascade-file-reader.js",
       },
       pages: {
         src: ["src/css-raw/normalize.css", "src/css-raw/gh-page.css", "src/css-raw/perf-cascade.css"],
-        dest: "src/dist/perf-cascade-gh-page.css",
+        dest: "build/perf-cascade-gh-page.css",
       }
     },
     browserify: {
@@ -45,12 +45,12 @@ module.exports = function (grunt) {
       },
       dist: {
         files: {
-          "src/dist/perf-cascade.js": ["src/ts/main.ts"],
+          "build/perf-cascade.js": ["src/ts/main.ts"],
         }
       },
       fileReader: {
         files: {
-          "src/dist/temp/perf-cascade-file-reader.js": ["src/ts/file-reader.ts"],
+          "build/file-reader.js": ["src/ts/file-reader.ts"],
         },
         options: {
           browserifyOptions: {
@@ -95,8 +95,8 @@ module.exports = function (grunt) {
       },
       dist: {
         files: {
-          "src/dist/perf-cascade.min.js": ["src/dist/perf-cascade.js"],
-          "src/dist/perf-cascade-file-reader.min.js": ["src/zip/zip.js", "src/zip/inflate.js", "src/dist/temp/perf-cascade-file-reader.js"]
+          "build/perf-cascade.min.js": ["build/perf-cascade.js"],
+          "build/perf-cascade-file-reader.min.js": ["src/zip/zip.js", "src/zip/inflate.js", "build/file-reader.js"]
         }
       }
     },
@@ -123,9 +123,9 @@ module.exports = function (grunt) {
         expand: true,
         flatten: true,
         src: [
-          "src/dist/perf-cascade-gh-page.css",
-          "src/dist/perf-cascade.min.js",
-          "src/dist/perf-cascade-file-reader.min.js"
+          "build/perf-cascade-gh-page.css",
+          "build/perf-cascade.min.js",
+          "build/perf-cascade-file-reader.min.js"
         ],
         dest: "gh-pages/src/",
         filter: "isFile",
@@ -134,11 +134,11 @@ module.exports = function (grunt) {
         expand: true,
         flatten: true,
         src: [
-          "src/dist/perf-cascade.js",
-          "src/dist/perf-cascade.min.js",
-          "src/dist/perf-cascade-file-reader.js",
-          "src/dist/perf-cascade-file-reader.min.js",
-          "src/dist/perf-cascade.css"
+          "build/perf-cascade.js",
+          "build/perf-cascade.min.js",
+          "build/perf-cascade-file-reader.js",
+          "build/perf-cascade-file-reader.min.js",
+          "build/perf-cascade.css"
         ],
         dest: "dist/",
         filter: "isFile",
@@ -178,8 +178,8 @@ module.exports = function (grunt) {
       options: {
         files: [
           "package.json",
-          "src/dist/*.js",
-          "src/dist/*.css",
+          "build/*.js",
+          "build/*.css",
           "lib/perf-cascade.js",
           "lib/perf-cascade-file-reader.js",
           "lib/perf-cascade.css",
@@ -190,9 +190,7 @@ module.exports = function (grunt) {
         createTag: true,
         // dryRun: true,
         commitFiles: [
-          "package.json",
-          "src/dist/*.js",
-          "src/dist/*.css",
+          "package.json"
         ],
       }
     }
